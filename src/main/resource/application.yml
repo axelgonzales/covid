@@ -32,14 +32,15 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
   jpa:
+    generate-ddl: true
     show-sql: false
     database: POSTGRESQL
     hibernate:
       ddl-auto: update     
   datasource:
     platform: postgress
-    url: jdbc:postgresql://ec2-52-7-39-178.compute-1.amazonaws.com:5432/d8liufcbtid1r
-    username: zritftlggwskbz
-    password: 63310f848173226d91d482fa7c2cbe52bba84d690db37cedad091a7fba004977
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
   jackson:
     time-zone: America/Lima
