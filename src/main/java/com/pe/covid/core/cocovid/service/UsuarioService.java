@@ -17,4 +17,6 @@ public interface UsuarioService {
     public UsuarioEntity updateusuario(UsuarioRequest UsuarioRequest, Long id);
 
     public void deleteusuarioById(Long id);
+
+	public UsuarioEntity login(String username, String password);
 }

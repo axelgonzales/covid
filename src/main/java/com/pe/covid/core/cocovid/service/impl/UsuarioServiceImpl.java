@@ -69,4 +69,13 @@ public class UsuarioServiceImpl implements UsuarioService {
         UsuarioRepository.findById(id).ifPresent(delete -> UsuarioRepository.deleteById(id));
 
     }
+
+	@Override
+	public UsuarioEntity login(String username, String password) {
+		List<UsuarioEntity> listusuario =  UsuarioRepository.findByUsernameAndPassword(username, password);
+		if (listusuario.isEmpty()) {
+			throw new ModelNotFoundException("USUARIO O CLAVE INCORRECTOS");
+		}
+		return listusuario.get(0);
+	}
 }

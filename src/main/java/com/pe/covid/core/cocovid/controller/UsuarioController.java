@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pe.covid.core.cocovid.constant.Constant;
@@ -32,16 +33,16 @@ import io.swagger.annotations.ApiResponses;
 @Api(value = "usuarioController", produces = "application/json", tags = { "Controlador usuario" })
 public class UsuarioController {
 
-    private final UsuarioService UsuarioService;
+    private final UsuarioService usuarioService;
 
     @Autowired
-    public UsuarioController(UsuarioService UsuarioService) {
-        this.UsuarioService = UsuarioService;
+    public UsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
     }
 
     @GetMapping
     public List<UsuarioEntity> getAllusuarios() {
-        return UsuarioService.findAllusuarios();
+        return usuarioService.findAllusuarios();
     }
 
     @ApiOperation(value = "Obtiene usuario por ID", tags = { "Controlador usuario" })
@@ -51,7 +52,7 @@ public class UsuarioController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Error en el servidor", response = ExceptionResponse.class)})
     public ResponseEntity<UsuarioEntity> getusuarioById(@PathVariable Long id) {
-        return UsuarioService.findusuarioById(id)
+        return usuarioService.findusuarioById(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -63,8 +64,19 @@ public class UsuarioController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Error en el servidor", response = ExceptionResponse.class)})
     public ResponseEntity<UsuarioResponse> createusuario(@RequestBody @Validated UsuarioRequest UsuarioRequest) {
-        UsuarioService.saveusuario(UsuarioRequest);
+        usuarioService.saveusuario(UsuarioRequest);
         return new ResponseEntity<>(new UsuarioResponse(Constant.REG_INS_ACCEPTED), HttpStatus.CREATED);
+    }
+    
+    @ApiOperation(value = "Login usuario", tags = { "Controlador usuario" })
+    @PostMapping("/login")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "usuario registrada", response = UsuarioRequest.class),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Error en el servidor", response = ExceptionResponse.class)})
+    public ResponseEntity<UsuarioEntity> login(@RequestParam String username, @RequestParam String password) {
+        ;
+        return new ResponseEntity<>(usuarioService.login(username,password), HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "Actualiza usuario", tags = { "Controlador usuario" })
@@ -74,7 +86,7 @@ public class UsuarioController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Error en el servidor", response = ExceptionResponse.class)})
     public ResponseEntity<UsuarioResponse> updateusuario(@PathVariable Long id, @RequestBody UsuarioRequest UsuarioRequest) throws Exception {
-        UsuarioService.updateusuario(UsuarioRequest, id);
+        usuarioService.updateusuario(UsuarioRequest, id);
         return new ResponseEntity<>(new UsuarioResponse(Constant.REG_ACT_ACCEPTED), HttpStatus.CREATED);
     }
 
@@ -85,7 +97,7 @@ public class UsuarioController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Error en el servidor", response = ExceptionResponse.class)})
     public ResponseEntity<UsuarioResponse> deleteusuario(@PathVariable Long id) {
-        UsuarioService.deleteusuarioById(id);
+        usuarioService.deleteusuarioById(id);
         return new ResponseEntity<>(new UsuarioResponse(Constant.REG_ELI_OK), HttpStatus.ACCEPTED);
     }
 }
