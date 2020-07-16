@@ -10,7 +10,6 @@ logging:
 
 
 server:
-  port: 8080
   servlet:
     context-path: /covid
 
@@ -39,8 +38,8 @@ spring:
       ddl-auto: update     
   datasource:
     platform: postgress
-    url: ${JDBC_DATABASE_URL}
-    username: ${JDBC_DATABASE_USERNAME}
-    password: ${JDBC_DATABASE_PASSWORD}
+    url: jdbc:postgresql://ec2-52-7-39-178.compute-1.amazonaws.com:5432/d8liufcbtid1r
+    username: zritftlggwskbz
+    password: 63310f848173226d91d482fa7c2cbe52bba84d690db37cedad091a7fba004977
   jackson:
     time-zone: America/Lima
