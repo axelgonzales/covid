@@ -38,8 +38,8 @@ spring:
       ddl-auto: update     
   datasource:
     platform: postgress
-    url: jdbc:postgresql://localhost:5432/cv
-    username: postgres
-    password: password
+    url: jdbc:postgresql://ec2-52-7-39-178.compute-1.amazonaws.com:5432/d8liufcbtid1r
+    username: zritftlggwskbz
+    password: 63310f848173226d91d482fa7c2cbe52bba84d690db37cedad091a7fba004977
   jackson:
     time-zone: America/Lima
