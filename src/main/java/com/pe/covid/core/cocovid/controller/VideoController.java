@@ -26,11 +26,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("video")
-@Slf4j
 @Api(value = "videoController", produces = "application/json", tags = { "Controlador video" })
 public class VideoController {
 
