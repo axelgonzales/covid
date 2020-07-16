@@ -1,0 +1,45 @@
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    pe.realplaza.workflow: INFO
+    pe.realplaza.workflow.repository: DEBUG
+    org.springframework.jdbc.core.JdbcTemplate: INFO
+    org.springframework.jdbc.core.simple.SimpleJdbcCall: INFO
+    org.springframework.web.client.RestTemplate: INFO
+
+
+server:
+  port: 8080
+  servlet:
+    context-path: /workflow
+
+
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: app.curriculum.v2
+    password: pokemonkur
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls: 
+            enable: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  jpa:
+    show-sql: false
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: update     
+  datasource:
+    platform: postgress
+    url: jdbc:postgresql://localhost:5432/cv
+    username: postgres
+    password: password
+  jackson:
+    time-zone: America/Lima
