@@ -28,7 +28,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("usuario")
+@RequestMapping("v1/usuario")
 @Api(value = "usuarioController", produces = "application/json", tags = { "Controlador usuario" })
 public class UsuarioController {
 

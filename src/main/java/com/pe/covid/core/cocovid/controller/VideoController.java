@@ -28,7 +28,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("video")
+@RequestMapping("v1/video")
 @Api(value = "videoController", produces = "application/json", tags = { "Controlador video" })
 public class VideoController {
 
