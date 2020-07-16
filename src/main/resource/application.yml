@@ -12,7 +12,7 @@ logging:
 server:
   port: 8080
   servlet:
-    context-path: /workflow
+    context-path: /covid
 
 
 spring:
