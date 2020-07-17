@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.pe.covid.core.cocovid.constant.Constant;
 import com.pe.covid.core.cocovid.domain.VideoEntity;
@@ -62,8 +63,9 @@ public class VideoController {
             @ApiResponse(code = 201, message = "video registrada", response = VideoRequest.class),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Error en el servidor", response = ExceptionResponse.class)})
-    public ResponseEntity<VideoResponse> createvideo(@RequestBody @Validated VideoRequest VideoRequest) {
-        VideoService.savevideo(VideoRequest);
+    public ResponseEntity<VideoResponse> createvideo(
+    		VideoRequest VideoRequest,MultipartFile video, MultipartFile imagen) {
+        VideoService.savevideo(VideoRequest,video,imagen);
         return new ResponseEntity<>(new VideoResponse(Constant.REG_INS_ACCEPTED), HttpStatus.CREATED);
     }
 

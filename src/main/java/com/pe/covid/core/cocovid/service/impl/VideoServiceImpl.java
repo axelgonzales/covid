@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.pe.covid.core.cocovid.constant.Constant;
 import com.pe.covid.core.cocovid.domain.VideoEntity;
@@ -15,6 +16,8 @@ import com.pe.covid.core.cocovid.repository.VideoRepository;
 import com.pe.covid.core.cocovid.service.VideoService;
 import com.pe.covid.core.cocovid.service.impl.mapper.VideoDTOToVideoEntityMapper;
 
+import pe.realplaza.filestorage.service.AmazonClientService;
+
 @Service
 @Transactional
 public class VideoServiceImpl implements VideoService {
@@ -22,9 +25,14 @@ public class VideoServiceImpl implements VideoService {
     private final VideoRepository VideoRepository;
     private VideoDTOToVideoEntityMapper VideoDTOToVideoEntityMapper = new VideoDTOToVideoEntityMapper();
    
+    private AmazonClientService amazonClientService;
+
+    
+    
     @Autowired
-    public VideoServiceImpl(VideoRepository VideoRepository) {
+    public VideoServiceImpl(VideoRepository VideoRepository , AmazonClientService amazonClientService  ) {
         this.VideoRepository = VideoRepository;
+        this.amazonClientService = amazonClientService;
     }
 
     public List<VideoEntity> findAllvideos() {
@@ -41,10 +49,11 @@ public class VideoServiceImpl implements VideoService {
         return optionalvideo;
     }
 
-    public VideoEntity savevideo(VideoRequest VideoRequest) {
-
+    public VideoEntity savevideo(VideoRequest VideoRequest, MultipartFile video, MultipartFile imagen) {
+    	VideoRequest.setPath(amazonClientService.uploadFile("covid", "video", video));
+    	VideoRequest.setRuta(amazonClientService.uploadFile("covid", "imagen", imagen));
         VideoEntity VideoEntity = VideoRepository.save(VideoDTOToVideoEntityMapper.videoDTOTovideoEntityMapper(VideoRequest));
-
+        
         return VideoEntity;
     }
 
