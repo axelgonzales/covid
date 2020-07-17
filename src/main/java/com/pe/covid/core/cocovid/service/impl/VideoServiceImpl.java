@@ -16,7 +16,6 @@ import com.pe.covid.core.cocovid.repository.VideoRepository;
 import com.pe.covid.core.cocovid.service.VideoService;
 import com.pe.covid.core.cocovid.service.impl.mapper.VideoDTOToVideoEntityMapper;
 
-import pe.realplaza.filestorage.service.AmazonClientService;
 
 @Service
 @Transactional
