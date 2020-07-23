@@ -23,15 +23,13 @@ public class VideoServiceImpl implements VideoService {
 
     private final VideoRepository VideoRepository;
     private VideoDTOToVideoEntityMapper VideoDTOToVideoEntityMapper = new VideoDTOToVideoEntityMapper();
-   
-    private AmazonClientService amazonClientService;
 
     
     
     @Autowired
-    public VideoServiceImpl(VideoRepository VideoRepository , AmazonClientService amazonClientService  ) {
+    public VideoServiceImpl(VideoRepository VideoRepository  ) {
         this.VideoRepository = VideoRepository;
-        this.amazonClientService = amazonClientService;
+       
     }
 
     public List<VideoEntity> findAllvideos() {
@@ -49,8 +47,8 @@ public class VideoServiceImpl implements VideoService {
     }
 
     public VideoEntity savevideo(VideoRequest VideoRequest, MultipartFile video, MultipartFile imagen) {
-    	VideoRequest.setPath(amazonClientService.uploadFile("covid", "video", video));
-    	VideoRequest.setRuta(amazonClientService.uploadFile("covid", "imagen", imagen));
+//    	VideoRequest.setPath(amazonClientService.uploadFile("covid", "video", video));
+//    	VideoRequest.setRuta(amazonClientService.uploadFile("covid", "imagen", imagen));
         VideoEntity VideoEntity = VideoRepository.save(VideoDTOToVideoEntityMapper.videoDTOTovideoEntityMapper(VideoRequest));
         
         return VideoEntity;

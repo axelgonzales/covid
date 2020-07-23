@@ -5,6 +5,8 @@ import com.pe.covid.core.cocovid.repository.UsuarioRepository;
 import com.pe.covid.core.cocovid.model.UsuarioRequest;
 import com.pe.covid.core.cocovid.service.impl.mapper.UsuarioDTOToUsuarioEntityMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +18,7 @@ import com.pe.covid.core.cocovid.constant.Constant;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @Transactional
 public class UsuarioServiceImpl implements UsuarioService {
@@ -26,7 +29,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Autowired
     public UsuarioServiceImpl(UsuarioRepository UsuarioRepository) {
-        this.UsuarioRepository = UsuarioRepository;
+        log.info("");
+    	this.UsuarioRepository = UsuarioRepository;
      
     }
 

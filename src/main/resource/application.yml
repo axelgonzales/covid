@@ -9,10 +9,6 @@ logging:
     org.springframework.web.client.RestTemplate: INFO
 
 
-server:
-  servlet:
-    context-path: /covid
-
 
 spring:
   mail:
@@ -43,11 +39,3 @@ spring:
     password: 63310f848173226d91d482fa7c2cbe52bba84d690db37cedad091a7fba004977
   jackson:
     time-zone: America/Lima
-    
-    
-amazonProperties:
-  endpointUrl: https://s3.amazonaws.com
-  clientRegion: us-east-1
-  accessKey: ASIAWHGVWGGJBVLS5VZE
-  secretKey: tzVXCMYjxryOhiNNniuuihK+uscAt6Y9RoKpnjEI
-  bucketName: videos-covid
