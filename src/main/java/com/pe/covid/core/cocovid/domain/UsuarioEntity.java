@@ -33,6 +33,6 @@ public class UsuarioEntity {
     private String cellphone;
     private Integer gender;
     private String email;
-    private Date birthDate;
+    private String birthDate;
     private String facebook;
 }

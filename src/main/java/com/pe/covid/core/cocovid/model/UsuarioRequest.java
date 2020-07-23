@@ -1,7 +1,5 @@
 package com.pe.covid.core.cocovid.model;
 
-import java.util.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +18,8 @@ public class UsuarioRequest {
     private String lastname;
     private String cellphone;
     private Integer gender;
+    
     private String email;
-    private Date birthDate;
+    private String birthDate;
     private String facebook;
 }
