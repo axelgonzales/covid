@@ -76,7 +76,7 @@ public class UsuarioController {
             @ApiResponse(code = 500, message = "Error en el servidor", response = ExceptionResponse.class)})
     public ResponseEntity<UsuarioEntity> login(@RequestParam String username, @RequestParam String password) {
         ;
-        return new ResponseEntity<>(usuarioService.login(username,password), HttpStatus.CREATED);
+        return new ResponseEntity<>(usuarioService.login(username,password), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Actualiza usuario", tags = { "Controlador usuario" })
@@ -87,7 +87,7 @@ public class UsuarioController {
             @ApiResponse(code = 500, message = "Error en el servidor", response = ExceptionResponse.class)})
     public ResponseEntity<UsuarioResponse> updateusuario(@PathVariable Long id, @RequestBody UsuarioRequest UsuarioRequest) throws Exception {
         usuarioService.updateusuario(UsuarioRequest, id);
-        return new ResponseEntity<>(new UsuarioResponse(Constant.REG_ACT_ACCEPTED), HttpStatus.CREATED);
+        return new ResponseEntity<>(new UsuarioResponse(Constant.REG_ACT_ACCEPTED), HttpStatus.ACCEPTED);
     }
 
     @ApiOperation(value = "Elimina usuario", tags = { "Controlador usuario" })
