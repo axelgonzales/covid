@@ -64,8 +64,7 @@ public class UsuarioController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Error en el servidor", response = ExceptionResponse.class)})
     public ResponseEntity<UsuarioResponse> createusuario(@RequestBody @Validated UsuarioRequest UsuarioRequest) {
-        usuarioService.saveusuario(UsuarioRequest);
-        return new ResponseEntity<>(new UsuarioResponse(Constant.REG_INS_ACCEPTED), HttpStatus.CREATED);
+        return new ResponseEntity<>(new UsuarioResponse(Constant.REG_INS_ACCEPTED,usuarioService.saveusuario(UsuarioRequest)), HttpStatus.CREATED);
     }
     
     @ApiOperation(value = "Login usuario", tags = { "Controlador usuario" })
