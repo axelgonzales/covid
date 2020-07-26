@@ -13,8 +13,8 @@ public class VideoRequest {
 	
     private Long id;
     private String description;
-    private String ruta;
-    private String path;
+    private String imagen;
+    private String video;
     private String title;
     private Integer category;
 }
