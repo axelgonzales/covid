@@ -57,14 +57,14 @@ public class VideoController {
     }
 
     @ApiOperation(value = "Registra video", tags = { "Controlador video" })
-    @PostMapping
+    @PostMapping( consumes = {"multipart/form-data"})
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "video registrada", response = VideoRequest.class),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Error en el servidor", response = ExceptionResponse.class)})
     public ResponseEntity<VideoResponse> createvideo(
-    		VideoRequest VideoRequest,MultipartFile video, MultipartFile imagen) {
-        VideoService.savevideo(VideoRequest,video,imagen);
+    		VideoRequest VideoRequest,MultipartFile videoMulti, MultipartFile imagenMulti) {
+        VideoService.savevideo(VideoRequest,videoMulti,imagenMulti);
         return new ResponseEntity<>(new VideoResponse(Constant.REG_INS_ACCEPTED), HttpStatus.CREATED);
     }
 

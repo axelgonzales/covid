@@ -39,3 +39,12 @@ spring:
     password: 63310f848173226d91d482fa7c2cbe52bba84d690db37cedad091a7fba004977
   jackson:
     time-zone: America/Lima
+
+    
+amazonProperties:
+  endpointUrl: https://s3.amazonaws.com
+  clientRegion: us-east-1
+  accessKey: AKIA5BAY4GEIZHRRMOXD
+  secretKey: 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
+  bucketName: dev-covid-unac
+  

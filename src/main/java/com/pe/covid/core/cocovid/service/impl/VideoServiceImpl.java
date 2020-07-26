@@ -13,23 +13,27 @@ import com.pe.covid.core.cocovid.domain.VideoEntity;
 import com.pe.covid.core.cocovid.exception.ModelNotFoundException;
 import com.pe.covid.core.cocovid.model.VideoRequest;
 import com.pe.covid.core.cocovid.repository.VideoRepository;
+import com.pe.covid.core.cocovid.service.AmazonClientService;
 import com.pe.covid.core.cocovid.service.VideoService;
 import com.pe.covid.core.cocovid.service.impl.mapper.VideoDTOToVideoEntityMapper;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @Transactional
 public class VideoServiceImpl implements VideoService {
 
     private final VideoRepository VideoRepository;
+    private final AmazonClientService amazonClient;
     private VideoDTOToVideoEntityMapper VideoDTOToVideoEntityMapper = new VideoDTOToVideoEntityMapper();
 
     
     
     @Autowired
-    public VideoServiceImpl(VideoRepository VideoRepository  ) {
+    public VideoServiceImpl(VideoRepository VideoRepository, AmazonClientService amazonClient  ) {
         this.VideoRepository = VideoRepository;
-       
+        this.amazonClient = amazonClient;
     }
 
     public List<VideoEntity> findAllvideos() {
@@ -47,8 +51,9 @@ public class VideoServiceImpl implements VideoService {
     }
 
     public VideoEntity savevideo(VideoRequest VideoRequest, MultipartFile video, MultipartFile imagen) {
-//    	VideoRequest.setPath(amazonClientService.uploadFile("covid", "video", video));
-//    	VideoRequest.setRuta(amazonClientService.uploadFile("covid", "imagen", imagen));
+    	log.info("savevideo");
+    	VideoRequest.setVideo(amazonClient.uploadFile("video", video, false));
+    	VideoRequest.setImagen(amazonClient.uploadFile( "imagen", imagen ,  false));
         VideoEntity VideoEntity = VideoRepository.save(VideoDTOToVideoEntityMapper.videoDTOTovideoEntityMapper(VideoRequest));
         
         return VideoEntity;
