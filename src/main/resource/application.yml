@@ -44,7 +44,7 @@ spring:
 amazonProperties:
   endpointUrl: https://s3.amazonaws.com
   clientRegion: us-east-1
-  accessKey: AKIA5BAY4GEIZHRRMOXD
-  secretKey: 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
+  accessKey: ${accessKey}
+  secretKey: ${secretKey}
   bucketName: dev-covid-unac
   
