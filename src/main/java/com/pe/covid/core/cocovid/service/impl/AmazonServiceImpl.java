@@ -35,8 +35,8 @@ public class AmazonServiceImpl implements AmazonClientService {
 
     public AmazonS3 s3client;
   
-    @Value("${amazonProperties.endpointUrl}")
-    public String endpointUrl;
+//    @Value("${amazonProperties.endpointUrl}")
+    public String endpointUrl = "https://s3.amazonaws.com";
     @Value("${amazonProperties.clientRegion}")
     public String clientRegion;
     @Value("${amazonProperties.bucketName}")
