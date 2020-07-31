@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pe.covid.core.cocovid.constant.Constant;
+import com.pe.covid.core.cocovid.controller.request.VideoFilterRequest;
 import com.pe.covid.core.cocovid.domain.VideoEntity;
 import com.pe.covid.core.cocovid.exception.ModelNotFoundException;
 import com.pe.covid.core.cocovid.model.VideoRequest;
@@ -76,4 +77,9 @@ public class VideoServiceImpl implements VideoService {
         VideoRepository.findById(id).ifPresent(delete -> VideoRepository.deleteById(id));
 
     }
+
+	@Override
+	public List<VideoEntity> searchVideo(VideoFilterRequest request) {
+		return VideoRepository.findByCategory(request.getCategory());
+	}
 }

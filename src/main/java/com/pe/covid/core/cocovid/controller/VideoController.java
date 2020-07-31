@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.pe.covid.core.cocovid.constant.Constant;
+import com.pe.covid.core.cocovid.controller.request.VideoFilterRequest;
 import com.pe.covid.core.cocovid.domain.VideoEntity;
 import com.pe.covid.core.cocovid.exception.ExceptionResponse;
 import com.pe.covid.core.cocovid.model.VideoRequest;
@@ -32,16 +33,16 @@ import io.swagger.annotations.ApiResponses;
 @Api(value = "videoController", produces = "application/json", tags = { "Controlador video" })
 public class VideoController {
 
-    private final VideoService VideoService;
+    private final VideoService videoService;
 
     @Autowired
-    public VideoController(VideoService VideoService) {
-        this.VideoService = VideoService;
+    public VideoController(VideoService videoService) {
+        this.videoService = videoService;
     }
 
     @GetMapping
     public List<VideoEntity> getAllvideos() {
-        return VideoService.findAllvideos();
+        return videoService.findAllvideos();
     }
 
     @ApiOperation(value = "Obtiene video por ID", tags = { "Controlador video" })
@@ -51,11 +52,22 @@ public class VideoController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Error en el servidor", response = ExceptionResponse.class)})
     public ResponseEntity<VideoEntity> getvideoById(@PathVariable Long id) {
-        return VideoService.findvideoById(id)
+        return videoService.findvideoById(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    
+    @ApiOperation(value = "Obtiene video por search", tags = { "Controlador video" })
+    @GetMapping("/search")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "video encontrada", response = VideoEntity.class),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Error en el servidor", response = ExceptionResponse.class)})
+    public List<VideoEntity>  searchVideo(VideoFilterRequest request) {
+        return videoService.searchVideo(request);
+    }
+    
     @ApiOperation(value = "Registra video", tags = { "Controlador video" })
     @PostMapping( consumes = {"multipart/form-data"})
     @ApiResponses(value = {
@@ -63,8 +75,8 @@ public class VideoController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Error en el servidor", response = ExceptionResponse.class)})
     public ResponseEntity<VideoResponse> createvideo(
-    		VideoRequest VideoRequest,MultipartFile videoMulti, MultipartFile imagenMulti) {
-        VideoService.savevideo(VideoRequest,videoMulti,imagenMulti);
+    		VideoRequest videoRequest,MultipartFile videoMulti, MultipartFile imagenMulti) {
+        videoService.savevideo(videoRequest,videoMulti,imagenMulti);
         return new ResponseEntity<>(new VideoResponse(Constant.REG_INS_ACCEPTED), HttpStatus.CREATED);
     }
 
@@ -74,8 +86,8 @@ public class VideoController {
             @ApiResponse(code = 200, message = "video actualizada", response = VideoRequest.class),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Error en el servidor", response = ExceptionResponse.class)})
-    public ResponseEntity<VideoResponse> updatevideo(@PathVariable Long id, @RequestBody VideoRequest VideoRequest) throws Exception {
-        VideoService.updatevideo(VideoRequest, id);
+    public ResponseEntity<VideoResponse> updatevideo(@PathVariable Long id, @RequestBody VideoRequest videoRequest) throws Exception {
+        videoService.updatevideo(videoRequest, id);
         return new ResponseEntity<>(new VideoResponse(Constant.REG_ACT_ACCEPTED), HttpStatus.CREATED);
     }
 
@@ -86,7 +98,7 @@ public class VideoController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Error en el servidor", response = ExceptionResponse.class)})
     public ResponseEntity<VideoResponse> deletevideo(@PathVariable Long id) {
-        VideoService.deletevideoById(id);
+        videoService.deletevideoById(id);
         return new ResponseEntity<>(new VideoResponse(Constant.REG_ELI_OK), HttpStatus.ACCEPTED);
     }
 }
