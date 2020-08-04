@@ -80,6 +80,10 @@ public class VideoServiceImpl implements VideoService {
 
 	@Override
 	public List<VideoEntity> searchVideo(VideoFilterRequest request) {
-		return VideoRepository.findByCategory(request.getCategory());
+		if (request.getCategory() == 0) {
+			return VideoRepository.findAll();
+		}else {
+			return VideoRepository.findByCategory(request.getCategory());
+		}
 	}
 }
