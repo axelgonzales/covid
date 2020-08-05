@@ -10,7 +10,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PreguntaRequest {
+	
     private Long id;
     private String pregunta;
     private String respuesta;
+    private String respuestaResume;
 }

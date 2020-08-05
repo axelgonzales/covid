@@ -27,4 +27,5 @@ public class PreguntaEntity {
 
     private String pregunta;
     private String respuesta;
+    private String respuestaResume;
 }

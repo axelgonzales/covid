@@ -53,8 +53,13 @@ public class VideoServiceImpl implements VideoService {
 
     public VideoEntity savevideo(VideoRequest VideoRequest, MultipartFile video, MultipartFile imagen) {
     	log.info("savevideo");
-    	VideoRequest.setVideo(amazonClient.uploadFile("video", video, false));
-    	VideoRequest.setImagen(amazonClient.uploadFile( "imagen", imagen ,  false));
+    	if (VideoRequest.getImagen() == null || VideoRequest.getImagen().isEmpty()) {
+    		VideoRequest.setImagen(amazonClient.uploadFile( "imagen", imagen ,  false));
+		}
+    	if (VideoRequest.getImagen() == null && VideoRequest.getImagen().isEmpty()) {
+			VideoRequest.setVideo(amazonClient.uploadFile("video", video, false));
+		}
+    	
         VideoEntity VideoEntity = VideoRepository.save(VideoDTOToVideoEntityMapper.videoDTOTovideoEntityMapper(VideoRequest));
         
         return VideoEntity;

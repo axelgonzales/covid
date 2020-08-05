@@ -49,9 +49,10 @@ public class PreguntaServiceImpl implements PreguntaService {
     }
 
     public PreguntaEntity savePregunta(PreguntaRequest preguntaRequest) {
-
+    	preguntaRequest.setRespuestaResume(preguntaRequest.getRespuesta().substring(0,100));
         PreguntaEntity preguntaEntity = preguntaRepository.save(preguntaDTOToPreguntaEntityMapper.preguntaDTOToPreguntaEntityMapper(preguntaRequest));
-
+        
+        
         log.info("POST Pregunta MESSAGE TEST" );
         
         return preguntaEntity;
@@ -59,7 +60,7 @@ public class PreguntaServiceImpl implements PreguntaService {
 
     public PreguntaEntity updatePregunta(PreguntaRequest preguntaRequest, Long id) {
 
-
+    	preguntaRequest.setRespuestaResume(preguntaRequest.getRespuesta().substring(0,100));
 
         return preguntaRepository.findById(id).map(preguntaRequestObje -> {
             preguntaRequest.setId(id);
